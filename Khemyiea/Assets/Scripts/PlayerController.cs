@@ -7,19 +7,20 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    private Rigidbody rb;
-    private CapsuleCollider coll;
-    //private SpriteRenderer sprite;
+    private Rigidbody2D rb;
+    private BoxCollider2D coll;
+    private SpriteRenderer sprite;
     //private Animator anim;
     private float dirX = 0f;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpSpeed = 5f;
-    [SerializeField] private LayerMask Ground;
+    [SerializeField] private LayerMask jumpableGround;
     public float distanceToGround = 0.1f;
     private bool dblJump = true;
     private bool trplJump = true;
+    //private float facingDir;
 
     private enum MovementState { idle, running, jumping, runningR }
 
@@ -31,8 +32,14 @@ public class PlayerController : MonoBehaviour
     public int playerCurHp;
     public int playerMaxHp;
     public bool dead;
-    //public int item;
+    //public GameObject rock; // Reference to the attack object (e.g., projectile)
+    //public Transform attackSpawnPoint;
+    //public float rockSpeed = 100f;
+
     //public HealthBar healthBar;
+
+    [Header("Puzzles")]
+    public int key;
 
 
     [SerializeField] AudioClip[] clips;
@@ -46,9 +53,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        coll = GetComponent<CapsuleCollider>();
-        //mesh = GetComponent<MeshRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
         //anim = GetComponent<Animator>();
         //healthBar.SetMaxHealth(playerMaxHp);
         playerCurHp = playerMaxHp;
@@ -74,6 +81,16 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             trplJump = false;
         }
+
+        /*if (transform.localScale.x > 0)
+        {
+            facingDir = 1;  // Facing right
+        }
+        else if (transform.localScale.x < 0)
+        {
+            facingDir = -1; // Facing left
+        }*/
+
 
         if (Input.GetMouseButtonDown(0) && Time.time - lastAttackTime > attackRate)
             Attack();
@@ -115,12 +132,10 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        Vector3 capsuleBottom = new Vector3(coll.bounds.center.x, coll.bounds.min.y, coll.bounds.center.z);
-        bool grounded = Physics.CheckCapsule(coll.bounds.center, capsuleBottom, distanceToGround, Ground, QueryTriggerInteraction.Ignore);
-        return grounded;
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
-    void OnCollisionEnter (Collision hit)
+    void OnCollisionEnter2D (Collision2D hit)
     {
         IsGrounded();
         dblJump = true;
@@ -141,7 +156,6 @@ public class PlayerController : MonoBehaviour
         {
             // get the enemy and damage them
             Enemy enemy = hit.collider.GetComponent<Enemy>();
-            //enemy.photonView.RPC("TakeDamage", RpcTarget.MasterClient, damage);
             enemy.TakeDamage(damage);
         }
         /*else if (hit.collider != null && hit.collider.gameObject.CompareTag("Boss"))
@@ -160,20 +174,20 @@ public class PlayerController : MonoBehaviour
         //anim.SetTrigger("Attack");
     }
 
-    /*public void Heal(int amountToHeal)
+    public void Heal(int amountToHeal)
     {
         playerCurHp = Mathf.Clamp(playerCurHp + amountToHeal, 0, playerMaxHp);
         // update the health bar
-        healthBar.SetHealth(playerCurHp);
+        //healthBar.SetHealth(playerCurHp);
     }
 
-    public void GiveItem(int itemToGive, int damageIncrease)
+    public void GiveKey(int keyToGive)
     {
-        item += itemToGive;
-        damage += damageIncrease;
+        key += keyToGive;
+        //damage += damageIncrease;
         // update the ui
-        GameUI.instance.UpdateItemText(item);
-    }*/
+        //GameUI.instance.UpdateKeyText(key);
+    }
 
     public void TakeDamage(int damage)
     {
@@ -188,23 +202,23 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Death");
             Die();
         }
-        /*else
+        else
         {
             FlashDamage();
-        }*/
+        }
         playerCurHp = Mathf.Clamp(playerCurHp, 0, playerMaxHp);
     }
 
-    /*void FlashDamage()
+    void FlashDamage()
     {
         StartCoroutine(DamageFlash());
         IEnumerator DamageFlash()
         {
-            mesh.color = Color.red;
+            sprite.color = Color.red;
             yield return new WaitForSeconds(0.05f);
-            mesh.color = Color.white;
+            sprite.color = Color.white;
         }
-    }*/
+    }
 
     private void Die()
     {

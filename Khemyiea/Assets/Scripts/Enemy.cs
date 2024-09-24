@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Components")]
     //public HealthBar healthBar;
-    public Rigidbody rig;
-    public MeshRenderer mr;
+    public Rigidbody2D rig;
+    public SpriteRenderer sr;
     [SerializeField] AudioClip[] clips;
 
     void Start()
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("meeple murple");
+        Debug.Log("meeple murple");
         if (targetPlayer != null)
         {
             //Debug.Log("hahaa");
@@ -58,13 +58,14 @@ public class Enemy : MonoBehaviour
             // otherwise, do we move after the player?
             else if (dist > attackRange)
             {
-                Debug.Log("Hello");
+                //Debug.Log("Hello");
                 Vector3 dir = targetPlayer.transform.position - transform.position;
                 rig.velocity = dir.normalized * moveSpeed;
             }
 
             else
             {
+                //Debug.Log("Not moving");
                 rig.velocity = Vector3.zero;
             }
         }
@@ -98,22 +99,22 @@ public class Enemy : MonoBehaviour
         //healthBar.SetHealth(curHp);
         if (curHp <= 0)
             Die();
-        /*else
+        else
         {
             FlashDamage();
-        }*/
+        }
     }
 
-    /*void FlashDamage()
+    void FlashDamage()
     {
         StartCoroutine(DamageFlash());
         IEnumerator DamageFlash()
         {
-            mr.color = Color.red;
+            sr.color = Color.red;
             yield return new WaitForSeconds(0.05f);
-            mr.color = Color.white;
+            sr.color = Color.white;
         }
-    }*/
+    }
 
     void Die()
     {
