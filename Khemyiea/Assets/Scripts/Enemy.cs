@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("meeple murple");
+        //Debug.Log("meeple murple");
         if (targetPlayer != null)
         {
             //Debug.Log("hahaa");
