@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public float distanceToGround = 0.1f;
     private bool dblJump = true;
     private bool trplJump = true;
-    private bool isTouchingWall;
+
 
     private enum MovementState { idle, running, jumping, runningR }
 
@@ -73,42 +73,37 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
         }
+
+        if (Input.GetButtonDown("Jump") && TouchingWall() !=0 && !IsGrounded())
+        {
+            Debug.Log("Wall jump");
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+
+            if (TouchingWall() == -1)
+            {
+                rb.AddForce(new Vector2(wallJumpForce, 0), ForceMode2D.Impulse);
+            }
+
+            else if (TouchingWall() == 1)
+            {
+                rb.AddForce(new Vector2(-wallJumpForce, 0), ForceMode2D.Impulse);
+            }
+
+            dblJump = true;
+            trplJump = true;
+        }
+
         else if (Input.GetButtonDown("Jump") && !IsGrounded() && dblJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             dblJump = false;
         }
+
         else if (Input.GetButtonDown("Jump") && !IsGrounded() && !dblJump && trplJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
             trplJump = false;
         }
-
-        if (Input.GetButtonDown("Jump") && isTouchingWall && !IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-            int wallSide = TouchingWall();
-
-            if(wallSide == -1)
-            {
-                rb.AddForce(new Vector2(wallJumpForce, 0), ForceMode2D.Impulse);
-            }
-
-            else if(wallSide == 1)
-            {
-                rb.AddForce(new Vector2(-wallJumpForce, 0), ForceMode2D.Impulse);
-            }
-        }
-
-        /*if (transform.localScale.x > 0)
-        {
-            facingDir = 1;  // Facing right
-        }
-        else if (transform.localScale.x < 0)
-        {
-            facingDir = -1; // Facing left
-        }*/
-
 
         if (Input.GetMouseButtonDown(0) && Time.time - lastAttackTime > attackRate)
             Attack();
@@ -155,34 +150,49 @@ public class PlayerController : MonoBehaviour
 
     private int TouchingWall()
     {
-        RaycastHit2D wallHitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1f, jumpableWall);
-        RaycastHit2D wallHitRight = Physics2D.Raycast(transform.position, Vector2.right, 1f, jumpableWall);
+        RaycastHit2D wallHitLeft = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.left, .2f, jumpableWall);
+        RaycastHit2D wallHitRight = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.right, .2f, jumpableWall);
 
+        Debug.DrawRay(coll.bounds.center, Vector2.left * .2f, Color.red); // For left wall
+        Debug.DrawRay(coll.bounds.center, Vector2.right * .2f, Color.red); // For right wall
+        //bool isTouchingWall;
         if (wallHitLeft.collider != null)
         {
-            isTouchingWall = true;
+            //isTouchingWall = true;
+            Debug.Log("Hit left wall collider: " + wallHitLeft.collider.gameObject.name);
+            Debug.Log("Left wall");
             return -1; //Touching left wall
         }
 
         else if(wallHitRight.collider != null)
         {
-            isTouchingWall = true;
+            //isTouchingWall = true;
+            Debug.Log("Hit right wall collider: " + wallHitRight.collider.gameObject.name);
+            Debug.Log("Right wall");
             return 1; //Touching right wall
         }
         else
         {
-            isTouchingWall = false;
+            //isTouchingWall = false;
+            Debug.Log("Not touching a wall");
             return 0; //Not touching a wall
         }
     }
 
     void OnCollisionEnter2D (Collision2D hit)
     {
-        IsGrounded();
-        dblJump = true;
-        trplJump = true;
+        if (IsGrounded())
+        {
+            dblJump = true;
+            trplJump = true;
+        }
 
-        Debug.Log("Collision detected");
+        else if (!IsGrounded())
+        {
+            //Debug.Log("Collision detected" + TouchingWall());
+            Debug.Log("Touching wall: " + TouchingWall());
+        }
+        //Debug.Log("Collision detected");
     }
 
     void Attack()

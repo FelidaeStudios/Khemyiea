@@ -75,9 +75,9 @@ public class Enemy : MonoBehaviour
     // attacks the targeted player
     void Attack()
     {
-        Debug.Log("Attack for " + damage + " damage");
+        //Debug.Log("Attack for " + damage + " damage");
         lastAttackTime = Time.time;
-        Debug.Log("Player takes damage");
+        //Debug.Log("Player takes damage");
         targetPlayer.TakeDamage(damage);
     }
 
