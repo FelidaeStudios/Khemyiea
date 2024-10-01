@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 23998970}
   - component: {fileID: 23998972}
   - component: {fileID: 23998971}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 167566634}
   - component: {fileID: 167566636}
   - component: {fileID: 167566635}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1354,9 +1354,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   jumpSpeed: 7
+  wallJumpForce: 10
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
+  jumpableWall:
+    serializedVersion: 2
+    m_Bits: 128
   distanceToGround: 0.1
   damage: 15
   attackRange: 1

@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpSpeed = 5f;
+    [SerializeField] private float wallJumpForce = 10f;
     [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private LayerMask jumpableWall;
     public float distanceToGround = 0.1f;
     private bool dblJump = true;
     private bool trplJump = true;
-    //private float facingDir;
+    private bool isTouchingWall;
 
     private enum MovementState { idle, running, jumping, runningR }
 
@@ -82,6 +84,22 @@ public class PlayerController : MonoBehaviour
             trplJump = false;
         }
 
+        if (Input.GetButtonDown("Jump") && isTouchingWall && !IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            int wallSide = TouchingWall();
+
+            if(wallSide == -1)
+            {
+                rb.AddForce(new Vector2(wallJumpForce, 0), ForceMode2D.Impulse);
+            }
+
+            else if(wallSide == 1)
+            {
+                rb.AddForce(new Vector2(-wallJumpForce, 0), ForceMode2D.Impulse);
+            }
+        }
+
         /*if (transform.localScale.x > 0)
         {
             facingDir = 1;  // Facing right
@@ -133,6 +151,29 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+    private int TouchingWall()
+    {
+        RaycastHit2D wallHitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1f, jumpableWall);
+        RaycastHit2D wallHitRight = Physics2D.Raycast(transform.position, Vector2.right, 1f, jumpableWall);
+
+        if (wallHitLeft.collider != null)
+        {
+            isTouchingWall = true;
+            return -1; //Touching left wall
+        }
+
+        else if(wallHitRight.collider != null)
+        {
+            isTouchingWall = true;
+            return 1; //Touching right wall
+        }
+        else
+        {
+            isTouchingWall = false;
+            return 0; //Not touching a wall
+        }
     }
 
     void OnCollisionEnter2D (Collision2D hit)
