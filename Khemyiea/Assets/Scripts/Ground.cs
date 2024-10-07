@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Ground : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    /*[SerializeField] AudioClip[] clips;
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-    }
+        if (collision.relativeVelocity.magnitude > 0.1f)
+        {
+            int index = UnityEngine.Random.Range(0, clips.Length);
+            AudioClip clip = clips[index];
+            GetComponent<AudioSource>().PlayOneShot(clip);
+        }
+    }*/
 }

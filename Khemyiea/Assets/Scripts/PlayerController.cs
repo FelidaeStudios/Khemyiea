@@ -17,11 +17,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpSpeed = 5f;
     [SerializeField] private float wallJumpForce = 10f;
+    [SerializeField] private float dashForce = 20f;
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private LayerMask jumpableWall;
     public float distanceToGround = 0.1f;
+    public float startDashTime;
+    public float dashTime;
     private bool dblJump = true;
     private bool trplJump = true;
+    private bool dash = false;
 
 
     private enum MovementState { idle, running, jumping, runningR }
@@ -34,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public int playerCurHp;
     public int playerMaxHp;
     public bool dead;
+    public int hazardDMG;
     //public GameObject rock; // Reference to the attack object (e.g., projectile)
     //public Transform attackSpawnPoint;
     //public float rockSpeed = 100f;
@@ -66,8 +71,19 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        //dirX = Input.GetAxisRaw("Horizontal");
+        //rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+        Moving();
+
+        /*if (Input.GetKeyDown("left shift"))
+        {
+            DashReset();
+        }*/
+        if (!dash)
+        {
+            PlayerDash();
+        }
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -109,6 +125,12 @@ public class PlayerController : MonoBehaviour
             Attack();
 
         //UpdateAnimationState();
+    }
+
+    private void Moving()
+    {
+        dirX = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
     }
 
     /*private void UpdateAnimationState()
@@ -282,6 +304,46 @@ public class PlayerController : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "GroundHazard")
+        {
+            playerCurHp -= hazardDMG;
+        }
+    }
+
+    /*private void DashReset()
+    {
+        StartCoroutine(Dash());
+        IEnumerator Dash()
+        {
+            if (dash)
+            {
+                rb.velocity = new Vector2(dirX * dashForce, rb.velocity.y);
+                dash = false;
+                yield return new WaitForSeconds(1.5f);
+                dash = true;
+            }
+            else
+            {
+                Debug.Log("Too soon to dash");
+            }
+        }
+    }*/
+
+    void PlayerDash()
+    {
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 direction = input.normalized;
+        Vector2 velocity = direction * dashForce;
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !dash)
+        {
+            dash = true;
+            rb.velocity = velocity;
+            startDashTime = Time.time;
+        }
     }
 
     /*private void OnMouseDown()

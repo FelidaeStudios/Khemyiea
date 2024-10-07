@@ -25,7 +25,7 @@ public class GroundHazard : MonoBehaviour
 
     void Update()
     {
-        
+        //OnCollisionEnter2D();
     }
 
     void OnCollisionEnter2D(Collision2D hit)
