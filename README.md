@@ -2,9 +2,6 @@
  
 https://kennerm1.github.io/Khemyiea/
 
-Changelog production 3:
+Changelog production Vertical Sclice 2:
 
-Temporarily removed gamepad controls
-Added door, key, and unlocking mechanic
-Changed jump speed
-Attempted wall jump
+Nothing added, player sprites are in progress and UI for healthbar is mostly done, UI layout is created.
