@@ -2,6 +2,8 @@
  
 https://kennerm1.github.io/Khemyiea/
 
-Changelog production Vertical Sclice 2:
+Changelog production Vertical Sclice 3:
 
-Nothing added, player sprites are in progress and UI for healthbar is mostly done, UI layout is created.
+Death to UI. It doesn't deserve to exist.
+
+Added UI, broke combat, doors are still broken despite countless attempts to fix, haven't had time to balance movement. Don't worry about how the healthbar goes down, that's a feature, not a bug.
