@@ -6,7 +6,9 @@ using TMPro;
 
 public enum PickupType
 {
-    Key,
+    Proton,
+    Neutron,
+    Electron,
     Health
 }
 
@@ -24,9 +26,15 @@ public class ItemCollector : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-            if (type == PickupType.Key)
+            if (type == PickupType.Proton)
                 //player("GiveItem", player, value);
-                player.GiveKey(value);
+                player.GiveProton(value);
+            else if (type == PickupType.Neutron)
+                //player("GiveItem", player, value);
+                player.GiveNeutron(value); 
+            else if (type == PickupType.Electron)
+                //player("GiveItem", player, value);
+                player.GiveElectron(value);
             else if (type == PickupType.Health)
                 //player("Heal", player, value);
                 player.Heal(value);

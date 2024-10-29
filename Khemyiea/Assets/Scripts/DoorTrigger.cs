@@ -5,17 +5,21 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     public GameObject door;
-    public int enoughKeys;
+    public int enoughProtons;
+    public int enoughNeutrons;
+    public int enoughElectrons;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if ((other.gameObject.GetComponent<PlayerController>().key) >= enoughKeys)
+            if ((other.gameObject.GetComponent<PlayerController>().proton) >= enoughProtons && (other.gameObject.GetComponent<PlayerController>().neutron) >= enoughNeutrons && (other.gameObject.GetComponent<PlayerController>().electron) >= enoughElectrons)
             {
                 door.SetActive(false);
                 transform.position = new Vector3(0, 120, 0);
-                other.gameObject.GetComponent<PlayerController>().key -= enoughKeys;
+                other.gameObject.GetComponent<PlayerController>().proton -= enoughProtons;
+                other.gameObject.GetComponent<PlayerController>().neutron -= enoughNeutrons;
+                other.gameObject.GetComponent<PlayerController>().electron -= enoughElectrons;
             }
         }
     }

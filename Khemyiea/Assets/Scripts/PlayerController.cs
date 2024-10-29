@@ -43,10 +43,12 @@ public class PlayerController : MonoBehaviour
     //public Transform attackSpawnPoint;
     //public float rockSpeed = 100f;
 
-    //public HealthBar healthBar;
+    public HealthBar healthBar;
 
     [Header("Puzzles")]
-    public int key;
+    public int proton;
+    public int neutron;
+    public int electron;
 
 
     [SerializeField] AudioClip[] clips;
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         //anim = GetComponent<Animator>();
-        //healthBar.SetMaxHealth(playerMaxHp);
+        healthBar.SetMaxHealth(playerMaxHp);
         playerCurHp = playerMaxHp;
 
     }
@@ -251,15 +253,31 @@ public class PlayerController : MonoBehaviour
     {
         playerCurHp = Mathf.Clamp(playerCurHp + amountToHeal, 0, playerMaxHp);
         // update the health bar
-        //healthBar.SetHealth(playerCurHp);
+        healthBar.SetHealth(playerCurHp);
     }
 
-    public void GiveKey(int keyToGive)
+    public void GiveProton(int protonToGive)
     {
-        key += keyToGive;
+        proton += protonToGive;
         //damage += damageIncrease;
         // update the ui
-        //GameUI.instance.UpdateKeyText(key);
+        GameUI.instance.UpdateProtonText(proton);
+    }
+
+    public void GiveNeutron(int neutronToGive)
+    {
+        neutron += neutronToGive;
+        //damage += damageIncrease;
+        // update the ui
+        GameUI.instance.UpdateNeutronText(neutron);
+    }
+
+    public void GiveElectron(int electronToGive)
+    {
+        electron += electronToGive;
+        //damage += damageIncrease;
+        // update the ui
+        GameUI.instance.UpdateElectronText(electron);
     }
 
     public void TakeDamage(int damage)
@@ -267,7 +285,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("HP before damage: " + playerCurHp);
         playerCurHp -= damage;
         // update the health bar
-        //healthBar.SetHealth(playerCurHp);
+        healthBar.SetHealth(playerCurHp);
         Debug.Log(damage + " damage taken");
         Debug.Log(playerCurHp + " hp remaining");
         if (playerCurHp <= 0)
