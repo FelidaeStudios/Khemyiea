@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ground : MonoBehaviour
 {
-    /*[SerializeField] AudioClip[] clips;
+    [SerializeField] AudioClip[] clips;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -14,5 +14,5 @@ public class Ground : MonoBehaviour
             AudioClip clip = clips[index];
             GetComponent<AudioSource>().PlayOneShot(clip);
         }
-    }*/
+    }
 }

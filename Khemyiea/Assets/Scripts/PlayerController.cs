@@ -183,22 +183,22 @@ public class PlayerController : MonoBehaviour
         if (wallHitLeft.collider != null)
         {
             //isTouchingWall = true;
-            Debug.Log("Hit left wall collider: " + wallHitLeft.collider.gameObject.name);
-            Debug.Log("Left wall");
+            //Debug.Log("Hit left wall collider: " + wallHitLeft.collider.gameObject.name);
+            //Debug.Log("Left wall");
             return -1; //Touching left wall
         }
 
         else if(wallHitRight.collider != null)
         {
             //isTouchingWall = true;
-            Debug.Log("Hit right wall collider: " + wallHitRight.collider.gameObject.name);
-            Debug.Log("Right wall");
+            //Debug.Log("Hit right wall collider: " + wallHitRight.collider.gameObject.name);
+            //Debug.Log("Right wall");
             return 1; //Touching right wall
         }
         else
         {
             //isTouchingWall = false;
-            Debug.Log("Not touching a wall");
+            //Debug.Log("Not touching a wall");
             return 0; //Not touching a wall
         }
     }
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
         else if (!IsGrounded())
         {
             //Debug.Log("Collision detected" + TouchingWall());
-            Debug.Log("Touching wall: " + TouchingWall());
+            //Debug.Log("Touching wall: " + TouchingWall());
         }
         //Debug.Log("Collision detected");
     }
