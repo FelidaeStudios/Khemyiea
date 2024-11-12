@@ -2,8 +2,10 @@
  
 https://kennerm1.github.io/Khemyiea/
 
-Changelog production Vertical Sclice 3:
+Changelog production Vertical Sclice 4:
 
 Death to UI. It doesn't deserve to exist.
 
-Added UI, broke combat, doors are still broken despite countless attempts to fix, haven't had time to balance movement. Don't worry about how the healthbar goes down, that's a feature, not a bug.
+Fixed combat, fixed doors, updated sprites, changed ground look, had kidney stones. Fixed UI not adding and removing keys properly, tweaked health bar, demolished personal health bar.
+
+Take care of your kidneys, folks.
