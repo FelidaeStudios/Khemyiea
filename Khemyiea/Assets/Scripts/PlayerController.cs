@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
-    //private Animator anim;
+    private Animator anim;
     private float dirX = 0f;
 
     [Header("Movement")]
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         healthBar.SetMaxHealth(playerMaxHp);
         playerCurHp = playerMaxHp;
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time - lastAttackTime > attackRate)
             Attack();
 
-        //UpdateAnimationState();
+        UpdateAnimationState();
     }
 
     private void Moving()
@@ -135,19 +135,19 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
     }
 
-    /*private void UpdateAnimationState()
+    private void UpdateAnimationState()
     {
         MovementState state;
         if (dirX < 0f)
         {
             state = MovementState.running;
-            //sprite.flipX = false;
+            sprite.flipX = false;
         }
 
         else if (dirX > 0f)
         {
-            state = MovementState.runningR;
-            //sprite.flipX = true;
+            state = MovementState.running;
+            sprite.flipX = true;
         }
 
         else
@@ -157,15 +157,15 @@ public class PlayerController : MonoBehaviour
 
         if (rb.velocity.y > .1f)
         {
-            state = MovementState.jumping;
-        }*/
+            state = MovementState.jumping; //make one
+        }
         /*else if (rb.velocity.y < -.1)
         {
             state = MovementState.falling;  //add falling anim and state
         }*/
 
-        //anim.SetInteger("state", (int)state);
-    //}
+        anim.SetInteger("state", (int)state);
+    }
 
     private bool IsGrounded()
     {
