@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - GroundHazard
   - Door
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -238,13 +238,13 @@ public class PlayerController : MonoBehaviour
             Enemy enemy = hit.collider.GetComponent<Enemy>();
             enemy.TakeDamage(damage);
         }
-        /*else if (hit.collider != null && hit.collider.gameObject.CompareTag("Boss"))
+        else if (hit.collider != null && hit.collider.gameObject.CompareTag("Boss"))
         {
             //Debug.Log("yo mama");
             Boss boss = hit.collider.GetComponent<Boss>();
             boss.TakeDamage(damage);
         }
-        else if (hit.collider != null && hit.collider.gameObject.CompareTag("hsuB"))
+        /*else if (hit.collider != null && hit.collider.gameObject.CompareTag("hsuB"))
         {
             //Debug.Log("hsuB");
             Barrier hsub = hit.collider.GetComponent<Barrier>();
