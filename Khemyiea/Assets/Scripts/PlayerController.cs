@@ -49,6 +49,11 @@ public class PlayerController : MonoBehaviour
     public int proton;
     public int neutron;
     public int electron;
+    public int winKey;
+
+    [Header("UI")]
+    public GameObject gameOverScreen;
+    public GameObject winScreen;
 
 
     [SerializeField] AudioClip[] clips;
@@ -315,14 +320,20 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("OwO");
         //rb.bodyType = RigidbodyType.Static;
+        gameOverScreen.SetActive(true);
         Destroy(gameObject);
-        RestartLevel();
+        //Time.timeScale = 0f;
+
+        //gameOver = true;
+        
+        //RestartLevel();
     }
 
-    private void RestartLevel()
+    //Commented out for game systems class
+    /*private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    }*/
 
     void OnTriggerEnter(Collider other)
     {
@@ -362,6 +373,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = velocity;
             startDashTime = Time.time;
         }
+    }
+
+    public void WinGame(int giveWinKey)
+    {
+        winKey += giveWinKey;
+        Time.timeScale = 0f;
+        winScreen.SetActive(true);
     }
 
     /*private void OnMouseDown()

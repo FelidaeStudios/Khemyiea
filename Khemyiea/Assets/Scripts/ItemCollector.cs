@@ -9,7 +9,8 @@ public enum PickupType
     Proton,
     Neutron,
     Electron,
-    Health
+    Health,
+    HeliumKey
 }
 
 public class ItemCollector : MonoBehaviour
@@ -31,13 +32,16 @@ public class ItemCollector : MonoBehaviour
                 player.GiveProton(value);
             else if (type == PickupType.Neutron)
                 //player("GiveItem", player, value);
-                player.GiveNeutron(value); 
+                player.GiveNeutron(value);
             else if (type == PickupType.Electron)
                 //player("GiveItem", player, value);
                 player.GiveElectron(value);
             else if (type == PickupType.Health)
                 //player("Heal", player, value);
                 player.Heal(value);
+            else if (type == PickupType.HeliumKey)
+                //Display win screen
+                player.WinGame(value);
             Destroy(gameObject);
         }
     }
