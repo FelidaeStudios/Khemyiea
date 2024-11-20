@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
             {
                 //Debug.Log("Hello");
                 Vector3 dir = targetPlayer.transform.position - transform.position;
-                rig.velocity = dir.normalized * moveSpeed;
+                rig.velocity = new Vector2(dir.normalized.x * moveSpeed, 0);
             }
 
             else

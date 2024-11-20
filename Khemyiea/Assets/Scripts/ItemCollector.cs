@@ -28,8 +28,11 @@ public class ItemCollector : MonoBehaviour
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             if (type == PickupType.Proton)
+            {
                 //player("GiveItem", player, value);
                 player.GiveProton(value);
+                Debug.Log("Item collected");
+            }
             else if (type == PickupType.Neutron)
                 //player("GiveItem", player, value);
                 player.GiveNeutron(value);
@@ -42,6 +45,7 @@ public class ItemCollector : MonoBehaviour
             else if (type == PickupType.HeliumKey)
                 //Display win screen
                 player.WinGame(value);
+            Debug.Log("Item collected");
             Destroy(gameObject);
         }
     }

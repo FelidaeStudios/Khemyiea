@@ -143,13 +143,13 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
-        if (dirX < 0f)
+        if (dirX > 0f)
         {
             state = MovementState.running;
             sprite.flipX = false;
         }
 
-        else if (dirX > 0f)
+        else if (dirX < 0f)
         {
             state = MovementState.running;
             sprite.flipX = true;
@@ -267,6 +267,7 @@ public class PlayerController : MonoBehaviour
         //damage += damageIncrease;
         // update the ui
         GameUI.instance.UpdateProtonText(proton);
+        Debug.Log("Proton collected");
     }
 
     public void GiveNeutron(int neutronToGive)
