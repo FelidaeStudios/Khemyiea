@@ -9,6 +9,8 @@ TagManager:
   - Door
   - Boss
   - hsuB
+  - Barrier
+  - Table
   layers:
   - Default
   - TransparentFX

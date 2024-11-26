@@ -263,6 +263,11 @@ public class PlayerController : MonoBehaviour
             Barrier hsub = hit.collider.GetComponent<Barrier>();
             hsub.TakeDamage(damage);
         }
+        else if (hit.collider != null && hit.collider.gameObject.CompareTag("Table"))
+        {
+            PuzzleTrigger puzzle = hit.collider.GetComponent<PuzzleTrigger>();
+            puzzle.PuzzleStart();
+        }
         // play attack animation
         //anim.SetTrigger("Attack");
     }
@@ -371,5 +376,6 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
+    //Puzzle functions
 
 }
