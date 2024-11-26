@@ -8,6 +8,7 @@ TagManager:
   - GroundHazard
   - Door
   - Boss
+  - hsuB
   layers:
   - Default
   - TransparentFX

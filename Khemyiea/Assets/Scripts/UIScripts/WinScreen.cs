@@ -8,12 +8,14 @@ public class WinScreen : MonoBehaviour
     [SerializeField] string _nextLevelName;
     [SerializeField] string _restartLevelName;
     public GameObject winScreen;
+    public GameObject HUDScreen;
 
     public void Restart()
     {
         SceneManager.LoadScene(_restartLevelName);
         Time.timeScale = 1.0f;
         winScreen.SetActive(false);
+        HUDScreen.SetActive(true);
     }
 
     public void Credits()

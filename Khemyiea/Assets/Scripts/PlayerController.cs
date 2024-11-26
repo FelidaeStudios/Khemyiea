@@ -17,16 +17,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpSpeed = 5f;
     [SerializeField] private float wallJumpForce = 10f;
-    [SerializeField] private float dashForce = 20f;
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private LayerMask jumpableWall;
     public float distanceToGround = 0.1f;
-    public float startDashTime;
-    public float dashTime;
     private bool dblJump = true;
     private bool trplJump = true;
-    private bool dash = false;
 
+    [Header("Dash")]
+    [SerializeField] private float dashForce = 14f;
+    [SerializeField] private float dashTime = 0.5f;
+    private Vector2 dashDir;
+    private bool isDashing;
+    private bool canDash = true;
 
     private enum MovementState { idle, running, jumping, runningR }
 
@@ -54,6 +56,10 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     public GameObject gameOverScreen;
     public GameObject winScreen;
+    public GameObject HUDScreen;
+
+    [Header("Journal")]
+    public int page;
 
 
     [SerializeField] AudioClip[] clips;
@@ -83,13 +89,30 @@ public class PlayerController : MonoBehaviour
 
         Moving();
 
-        /*if (Input.GetKeyDown("left shift"))
+        var dashInput = Input.GetButtonDown("Dash");
+
+        if (dashInput && canDash)
         {
-            DashReset();
-        }*/
-        if (!dash)
+            isDashing = true;
+            canDash = false;
+            dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (dashDir == Vector2.zero)
+            {
+                dashDir = new Vector2(transform.localScale.x, 0);
+            }
+            //stop dashing
+            StartCoroutine(StopDash());
+        }
+
+        if (isDashing)
         {
-            PlayerDash();
+            rb.velocity = dashDir.normalized * dashForce;
+            return;
+        }
+
+        if (IsGrounded())
+        {
+            canDash = true;
         }
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
@@ -187,23 +210,15 @@ public class PlayerController : MonoBehaviour
         //bool isTouchingWall;
         if (wallHitLeft.collider != null)
         {
-            //isTouchingWall = true;
-            //Debug.Log("Hit left wall collider: " + wallHitLeft.collider.gameObject.name);
-            //Debug.Log("Left wall");
             return -1; //Touching left wall
         }
 
         else if(wallHitRight.collider != null)
         {
-            //isTouchingWall = true;
-            //Debug.Log("Hit right wall collider: " + wallHitRight.collider.gameObject.name);
-            //Debug.Log("Right wall");
             return 1; //Touching right wall
         }
         else
         {
-            //isTouchingWall = false;
-            //Debug.Log("Not touching a wall");
             return 0; //Not touching a wall
         }
     }
@@ -240,19 +255,19 @@ public class PlayerController : MonoBehaviour
         }
         else if (hit.collider != null && hit.collider.gameObject.CompareTag("Boss"))
         {
-            //Debug.Log("yo mama");
             Boss boss = hit.collider.GetComponent<Boss>();
             boss.TakeDamage(damage);
         }
-        /*else if (hit.collider != null && hit.collider.gameObject.CompareTag("hsuB"))
+        else if (hit.collider != null && hit.collider.gameObject.CompareTag("hsuB"))
         {
-            //Debug.Log("hsuB");
             Barrier hsub = hit.collider.GetComponent<Barrier>();
             hsub.TakeDamage(damage);
-        }*/
+        }
         // play attack animation
         //anim.SetTrigger("Attack");
     }
+
+    //functions for ItemCollector
 
     public void Heal(int amountToHeal)
     {
@@ -264,7 +279,6 @@ public class PlayerController : MonoBehaviour
     public void GiveProton(int protonToGive)
     {
         proton += protonToGive;
-        //damage += damageIncrease;
         // update the ui
         GameUI.instance.UpdateProtonText(proton);
         Debug.Log("Proton collected");
@@ -273,17 +287,26 @@ public class PlayerController : MonoBehaviour
     public void GiveNeutron(int neutronToGive)
     {
         neutron += neutronToGive;
-        //damage += damageIncrease;
-        // update the ui
         GameUI.instance.UpdateNeutronText(neutron);
     }
 
     public void GiveElectron(int electronToGive)
     {
         electron += electronToGive;
-        //damage += damageIncrease;
-        // update the ui
         GameUI.instance.UpdateElectronText(electron);
+    }
+
+    public void WinGame(int giveWinKey)
+    {
+        winKey += giveWinKey;
+        Time.timeScale = 0f;
+        winScreen.SetActive(true);
+        HUDScreen.SetActive(false);
+    }
+
+    public void UpdateJournal(int givePage)
+    {
+        page += givePage;
     }
 
     public void TakeDamage(int damage)
@@ -319,8 +342,6 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        //Debug.Log("OwO");
-        //rb.bodyType = RigidbodyType.Static;
         gameOverScreen.SetActive(true);
         Destroy(gameObject);
         //Time.timeScale = 0f;
@@ -344,47 +365,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void DashReset()
+    private IEnumerator StopDash()
     {
-        StartCoroutine(Dash());
-        IEnumerator Dash()
-        {
-            if (dash)
-            {
-                rb.velocity = new Vector2(dirX * dashForce, rb.velocity.y);
-                dash = false;
-                yield return new WaitForSeconds(1.5f);
-                dash = true;
-            }
-            else
-            {
-                Debug.Log("Too soon to dash");
-            }
-        }
-    }*/
-
-    void PlayerDash()
-    {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Vector2 direction = input.normalized;
-        Vector2 velocity = direction * dashForce;
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !dash)
-        {
-            dash = true;
-            rb.velocity = velocity;
-            startDashTime = Time.time;
-        }
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
     }
 
-    public void WinGame(int giveWinKey)
-    {
-        winKey += giveWinKey;
-        Time.timeScale = 0f;
-        winScreen.SetActive(true);
-    }
 
-    /*private void OnMouseDown()
-    {
-        GetComponent<AudioSource>().Play();
-    }*/
 }

@@ -88,8 +88,8 @@ public class Boss : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int index = UnityEngine.Random.Range(0, clips.Length);
-        AudioClip clip = clips[index];
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        //AudioClip clip = clips[index];
+        //GetComponent<AudioSource>().PlayOneShot(clip);
         curHp -= damage;
         // update the health bar
         //healthBar.SetHealth(curHp);

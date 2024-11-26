@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     public float playerDetectRate = 0.2f;
     private float lastPlayerDetectTime;
 
-    //public GameObject objectToSpawnOnDeath;
+    public GameObject objectToSpawnOnDeath;
     //public GameObject enemy;
 
     [Header("Attack")]
@@ -118,8 +118,8 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        //if (objectToSpawnOnDeath != null)
-            //Instantiate(objectToSpawnOnDeath, transform.position, Quaternion.identity);
+        if (objectToSpawnOnDeath != null)
+            Instantiate(objectToSpawnOnDeath, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
 
         /*StartCoroutine(EnemyRespawn());
