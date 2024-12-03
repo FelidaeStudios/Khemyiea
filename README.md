@@ -10,6 +10,6 @@ Current version:
 
 Added interim level for basic mechanic learning, built basic first level, updated sprites.
 
-Feedback form:
+Anonymous feedback form:
 
 https://docs.google.com/forms/d/e/1FAIpQLSdUkyJFM0xsfpigph9qig4xoY6arzn5ecNWWt671KXmdwQxKA/viewform?usp=sf_link
