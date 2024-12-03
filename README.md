@@ -2,10 +2,14 @@
  
 https://kennerm1.github.io/Khemyiea/
 
-Resubmission for prototype: added win/lose screens upon death/collecting cube in second area.
+Instructions:
 
-MVP 2:
+WASD to move, SPACE to jump, LClick to attack. Pick up the circle keys around the map to unlock doors, fight the boss to get the final key to complete the game.
 
-Added boss, made boss drop win condition item, fixed UI again. Fixed enemy attack range, broke more stuff, fixed platform bug for now, added main menu.
+Current version:
 
-Apparently I broke the item pickup system.
+Added interim level for basic mechanic learning, built basic first level, updated sprites.
+
+Feedback form:
+
+https://docs.google.com/forms/d/e/1FAIpQLSdUkyJFM0xsfpigph9qig4xoY6arzn5ecNWWt671KXmdwQxKA/viewform?usp=sf_link
