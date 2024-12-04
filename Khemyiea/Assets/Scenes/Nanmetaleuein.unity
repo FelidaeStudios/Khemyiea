@@ -380,6 +380,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8518190160699645245, guid: 503fc9613e4ffaf4abffd9cd792d4f33, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8979797
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518190160699645245, guid: 503fc9613e4ffaf4abffd9cd792d4f33, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 503fc9613e4ffaf4abffd9cd792d4f33, type: 3}
 --- !u!1001 &94406704
@@ -433,6 +441,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471496752128728660, guid: 8d12e8a8dbb431c4d91a1d0d10e900a9, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 5471496752128728661, guid: 8d12e8a8dbb431c4d91a1d0d10e900a9, type: 3}
       propertyPath: m_Name
       value: TinySlime
@@ -794,6 +806,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
       propertyPath: objectToSpawnOnDeath
       value: 
@@ -1668,6 +1684,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 6405694420244917185, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
       propertyPath: m_Name
       value: Slime (1)
@@ -3418,6 +3438,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471496752128728660, guid: 8d12e8a8dbb431c4d91a1d0d10e900a9, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 5471496752128728661, guid: 8d12e8a8dbb431c4d91a1d0d10e900a9, type: 3}
       propertyPath: m_Name
       value: TinySlime (1)
@@ -3742,6 +3766,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
       propertyPath: objectToSpawnOnDeath
       value: 
@@ -4201,6 +4229,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
+      propertyPath: targetPlayer
+      value: 
+      objectReference: {fileID: 7132152}
     - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
       propertyPath: objectToSpawnOnDeath
       value: 
