@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;
     private bool canDash = true;
 
-    private enum MovementState { idle, running, jumping, runningR }
+    private enum MovementState { idle, running, jumping }
 
     [Header("Attack")]
     public int damage;
