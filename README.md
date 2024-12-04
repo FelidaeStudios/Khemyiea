@@ -4,7 +4,7 @@ https://kennerm1.github.io/Khemyiea/
 
 Instructions:
 
-WASD to move, SPACE to jump, LClick to attack. Pick up the circle keys around the map to unlock doors, fight the boss to get the final key to complete the game.
+WASD to move, SPACE to jump, SHIFT to sprint, LClick to attack. Pick up the circle keys around the map to unlock doors, fight the boss to get the final key to complete the game.
 
 Current version:
 
