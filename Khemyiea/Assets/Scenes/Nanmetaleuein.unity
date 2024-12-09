@@ -4373,6 +4373,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1968782813}
     m_Modifications:
     - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
+      propertyPath: chaseRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405694420244917184, guid: 082a89c0e7b50c847b768f607801bf29, type: 3}
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 7132152}

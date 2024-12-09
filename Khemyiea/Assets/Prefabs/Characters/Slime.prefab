@@ -123,8 +123,8 @@ MonoBehaviour:
   moveSpeed: 2
   curHp: 50
   maxHp: 50
-  chaseRange: 2
-  attackRange: 2
+  chaseRange: 10
+  attackRange: 5
   targetPlayer: {fileID: 0}
   playerDetectRate: 0.2
   objectToSpawnOnDeath: {fileID: 4192575014732824134, guid: 4e86eb09d749b32428dc991a818f1624, type: 3}

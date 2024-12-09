@@ -44,30 +44,40 @@ public class Enemy : MonoBehaviour
         //Debug.Log("meeple murple");
         if (targetPlayer != null)
         {
-            //Debug.Log("hahaa");
             // calculate the distance
             float dist = Vector3.Distance(transform.position, targetPlayer.transform.position);
+            //Debug.Log("Distance to player: " + dist);
 
-            // if we're able to attack, do so
-            if (dist < attackRange && Time.time - lastAttackTime >= attackRate)
+            if (dist <= chaseRange)
             {
-                Debug.Log("die unity");
-                Attack();
-            }
+                //Debug.Log("Player in chase range");
+                // if we're able to attack, do so
+                if (dist < attackRange && Time.time - lastAttackTime >= attackRate)
+                {
+                    //Debug.Log("die unity");
+                    Attack();
+                }
 
-            // otherwise, do we move after the player?
-            else if (dist > attackRange)
-            {
-                //Debug.Log("Hello");
-                Vector3 dir = targetPlayer.transform.position - transform.position;
-                rig.velocity = new Vector2(dir.normalized.x * moveSpeed, 0);
-            }
+                // otherwise, do we move after the player?
+                else if (dist > attackRange)
+                {
+                    //Debug.Log("Chasing player");
+                    Vector3 dir = targetPlayer.transform.position - transform.position;
+                    rig.velocity = new Vector2(dir.normalized.x * moveSpeed, 0);
+                }
 
+                else
+                {
+                    //Debug.Log("Not moving");
+                    rig.velocity = Vector3.zero;
+                }
+            }
             else
             {
-                //Debug.Log("Not moving");
+                //Debug.Log("Player out of range");
                 rig.velocity = Vector3.zero;
             }
+            
         }
         DetectPlayer();
     }
