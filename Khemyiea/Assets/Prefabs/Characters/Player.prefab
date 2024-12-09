@@ -134,7 +134,7 @@ MonoBehaviour:
   dashForce: 20
   dashTime: 0.5
   damage: 15
-  attackRange: 1
+  attackRange: 3
   attackRate: 0.5
   playerCurHp: 100
   playerMaxHp: 100
@@ -148,6 +148,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 0}
   winScreen: {fileID: 0}
   HUDScreen: {fileID: 0}
+  page: 0
   clips: []
 --- !u!61 &8518190160699645245
 BoxCollider2D:
@@ -162,7 +163,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.670866, y: -0.09500027}
+  m_Offset: {x: 0, y: -0.09500027}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -173,7 +174,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5068893, y: 3.4991693}
+  m_Size: {x: 1.8979797, y: 3.4991693}
   m_EdgeRadius: 0
 --- !u!95 &8518190160699645244
 Animator:
