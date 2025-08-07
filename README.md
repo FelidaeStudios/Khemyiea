@@ -1,6 +1,6 @@
 # Khemyiea
  
-https://kennerm1.github.io/Khemyiea/
+https://felidaestudios.github.io/Khemyiea/
 
 Instructions:
 
